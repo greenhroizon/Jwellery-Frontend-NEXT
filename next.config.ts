@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig = {
   images: {
-    domains: ["dpd52zzi6t5tf.cloudfront.net"],
+  remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dpd52zzi6t5tf.cloudfront.net',
+      },
+    ],
   },
 };
 

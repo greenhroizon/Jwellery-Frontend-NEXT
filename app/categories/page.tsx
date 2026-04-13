@@ -17,11 +17,15 @@ export default function Categories(){
     }
     return(
         <div className="max-w-[2050px]">
-            <ProductDisplay
-            title="Best Seller"
-            subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
-            products={productData?.data.products || []}
-            />
+               {productData?.data?.products?.length > 0 ? (
+              <ProductDisplay
+                title="Best Sellers"
+                subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
+                products={productData.data.products}
+              />
+            ) : (
+              <p className="text-center text-gray-500 mt-10">Product not found</p>
+            )}
             <Footer/>
         </div>
     );

@@ -20,11 +20,15 @@ export default function CategoryPage() {
 
   return (
     <div>
-      <ProductDisplay
-        title={products[0].categoryId.name}
-        subtitle="Explore beautiful handcrafted jewellery"
-        products={products}
-      />
+       {data?.data?.products?.length > 0 ? (
+        <ProductDisplay
+          title="Best Sellers"
+          subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
+          products={products}
+        />
+      ) : (
+        <p className="text-center text-gray-500 mt-10">Product not found</p>
+      )}
       <Category/>
       <Footer/>
     </div>

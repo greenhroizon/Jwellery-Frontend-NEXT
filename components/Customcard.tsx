@@ -25,6 +25,7 @@ export default function Customcard() {
               src="/Images/horse-image.JPG"
               alt="Sign in"
               fill
+              
               className="object-cover"
               priority
             />

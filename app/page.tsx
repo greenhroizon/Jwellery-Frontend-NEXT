@@ -94,11 +94,15 @@ export default function Home() {
   </div>
 </div>
 <Category/>
-    <ProductDisplay
-      title="Best Sellers"
-      subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
-      products={productData?.data.products || []}
-    />
+   {productData?.data?.products?.length > 0 ? (
+  <ProductDisplay
+    title="Best Sellers"
+    subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
+    products={productData.data.products}
+  />
+) : (
+  <p className="text-center text-gray-500 mt-10">Product not found</p>
+)}
     <div className="flex items-center justify-center w-full">
   <Button className="bg-white border border-red-800 text-red-800 px-6 py-6 rounded-2xl hover:bg-red-800 hover:text-white transition">
   <Link href="/categories">View All Products</Link>

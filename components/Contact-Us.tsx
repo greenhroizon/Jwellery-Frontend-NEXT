@@ -15,15 +15,14 @@ export default function ContactUsCard() {
               src="/Images/horse-image.JPG"
               alt="Sign up"
               fill
+              
               className="object-cover"
               priority
             />
           </div>
 
-          {/* Form Section */}
           <div className="flex flex-col gap-5 p-6 md:p-8 w-full md:w-1/2 lg:justify-center">
-            
-            {/* Heading */}
+          
             <div className="flex flex-col gap-1">
               <h2 className="text-2xl md:text-3xl font-semibold">
                 Contact Us
@@ -32,11 +31,8 @@ export default function ContactUsCard() {
                 Send us your custom order request/ query/ emergency info or order/ message
               </p>
             </div>
-
-            {/* Form */}
             <form className="flex flex-col gap-4">
 
-              {/* ✅ md = 2 columns, lg+ = back to 1 column */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
 
                 <div className="flex flex-col gap-1">

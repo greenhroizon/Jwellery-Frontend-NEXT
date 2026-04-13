@@ -16,6 +16,7 @@ export default function SignUp() {
               alt="Sign up"
               fill
               className="object-cover"
+              
               priority
             />
           </div>
@@ -35,8 +36,6 @@ export default function SignUp() {
 
             {/* Form */}
             <form className="flex flex-col gap-4">
-
-              {/* ✅ md = 2 columns, lg+ = back to 1 column */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
 
                 <div className="flex flex-col gap-1">
