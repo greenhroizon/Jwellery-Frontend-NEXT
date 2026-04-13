@@ -27,7 +27,7 @@ export default function Header() {
   ];
 
   const bottomNavItems = [
-    { label: "About Us", href: "/about" },
+    { label: "About Us", href: "/" },
     { label: "Contact", href: "/contactUs" },
     { label: "Sign In", href: "/signin" },
   ];
