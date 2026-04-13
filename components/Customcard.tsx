@@ -26,7 +26,7 @@ export default function Customcard() {
               alt="Sign in"
               fill
               
-              className="object-cover"
+              className="object-fill"
               priority
             />
           </div>

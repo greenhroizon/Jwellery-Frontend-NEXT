@@ -15,8 +15,7 @@ export default function ContactUsCard() {
               src="/Images/horse-image.JPG"
               alt="Sign up"
               fill
-              
-              className="object-cover"
+              className="object-fill"
               priority
             />
           </div>
@@ -33,7 +32,8 @@ export default function ContactUsCard() {
             </div>
             <form className="flex flex-col gap-4">
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+              {/* ✅ md = 2 columns, lg+ = back to 1 column */}
+              <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-2 gap-4">
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium">First Name</label>
