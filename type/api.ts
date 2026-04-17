@@ -77,3 +77,17 @@ export interface RegisterFormState {
   password: string;
   confirmPassword: string;
 }
+
+export interface Reel {
+  _id: string;
+  title: string;
+  videoUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApiResponse {
+  success: boolean;
+  message: string;
+  data: Reel[];
+}

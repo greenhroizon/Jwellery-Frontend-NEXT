@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import axios from "axios";
+import { useOtp } from "@/hooks/useLogin";
 
 export default function otp() {
   const router = useRouter();
 
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(120);
-
-  // ✅ Check otptoken
+  const { verifyOtp, resendOtp, loading } = useOtp();
   useEffect(() => {
     const token = localStorage.getItem("otptoken");
     if (!token) {
@@ -22,7 +22,6 @@ export default function otp() {
     }
   }, []);
 
-  // ✅ Timer
   useEffect(() => {
     if (timeLeft <= 0) return;
 
@@ -32,8 +31,6 @@ export default function otp() {
 
     return () => clearInterval(timer);
   }, [timeLeft]);
-
-  // ✅ OTP input handler
   const handleChange = (value: string, index: number) => {
     if (!/^\d?$/.test(value)) return;
 
@@ -54,11 +51,9 @@ export default function otp() {
     }
   };
 
-  // ✅ Submit OTP
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // ❌ Block if expired
     if (timeLeft <= 0) {
       toast.error("OTP expired. Please resend OTP");
       return;
@@ -74,37 +69,28 @@ export default function otp() {
     try {
       const token = localStorage.getItem("otptoken");
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user/verify-otp`,
-        {
-          otp: finalOtp,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await verifyOtp(finalOtp, token!);
 
-      toast.success(response.data.message || "OTP verified");
-
-      // ✅ Redirect after success
-      router.push("/signin"); // change if needed
+      router.push("/signin");
       localStorage.removeItem("otptoken");
-
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message || "OTP verification failed"
-      );
+    } catch (err) {
+      // handled in hook
     }
   };
 
-  // ✅ Resend OTP
-  const handleResend = () => {
+const handleResend = async () => {
+  const token = localStorage.getItem("otptoken");
+
+  if (!token) return;
+
+  try {
+    await resendOtp(token);
     setTimeLeft(120);
     setOtp(["", "", "", "", ""]);
-    toast.success("OTP Resent");
-  };
+  } catch (err) {
+    // handled in hook
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">

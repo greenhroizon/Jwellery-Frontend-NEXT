@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useCategories, useShopByProductFunction } from "@/hooks/useDashboard";
+import { useCart, useCategories, useShopByProductFunction } from "@/hooks/useDashboard";
 import { ShoppingCart } from "lucide-react";
 import { useAuth } from "./context/AuthContext";
 
@@ -12,10 +12,12 @@ export default function Header() {
   const [showFunction, setShowFunction] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState<any[]>([]);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const router = useRouter();
   const pathname = usePathname();
+  const { data, refetchCart } = useCart();
+  const cartItems = data?.data?.items || [];
+  const [localCart, setLocalCart] = useState<any[]>([]);
 
   const { data: getdataCategory } = useCategories();
   const { data: getdataProductCategory } = useShopByProductFunction();
@@ -31,6 +33,11 @@ export default function Header() {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
+  useEffect(() => {
+    if (data) {
+      setLocalCart(data?.data?.items || []);
+    }
+  }, [data]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -39,28 +46,9 @@ export default function Header() {
     setIsOpen(false);
     router.push("/signin");
   };
-
-  const fetchCart = async () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/user/cart`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        setCartItems(data?.data?.items || []);
-      } catch (err) {
-        console.log("Cart fetch error", err);
-      }
-    } else {
-      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
-      setCartItems(localCart);
-    }
-  };
-
   // ── Quantity ──────────────────────────────────────────────────────────────
   const handleIncrease = (index: number) => {
-    setCartItems((prev) =>
+    setLocalCart((prev) =>
       prev.map((item, i) =>
         i === index ? { ...item, quantity: (item.quantity || 1) + 1 } : item
       )
@@ -68,7 +56,7 @@ export default function Header() {
   };
 
   const handleDecrease = (index: number) => {
-    setCartItems((prev) =>
+    setLocalCart((prev) =>
       prev.map((item, i) =>
         i === index
           ? { ...item, quantity: Math.max(1, (item.quantity || 1) - 1) }
@@ -85,46 +73,43 @@ export default function Header() {
       return next;
     });
   };
-
-  // ── Checkout ──────────────────────────────────────────────────────────────
-  const handleCheckout = () => {
-    const checkoutItems = cartItems
-      .filter((item, index) => {
-        const product = item.productId || item;
-        const key = product._id || String(index);
-        return selectedItems.has(key);
-      })
-      .map((item) => {
-        const product = item.productId || item;
-        return {
-          productId: product._id,
-          name: product.name,
-          price: product.sellingPrice,
-          imageUrl: product.imageUrl?.[0],
-          quantity: item.quantity || 1,
-        };
-      });
-
-    if (checkoutItems.length === 0) {
-      alert("Please select at least one item to checkout.");
-      return;
-    }
-
-    localStorage.setItem("checkoutItems", JSON.stringify(checkoutItems));
-    setShowCart(false);
-    router.push("/checkout");
-  };
-
-  // ── Total ─────────────────────────────────────────────────────────────────
-  const selectedTotal = cartItems
+const handleCheckout = () => {
+  const checkoutItems = localCart
     .filter((item, index) => {
       const product = item.productId || item;
-      return selectedItems.has(product._id || String(index));
+      const key = product._id || String(index);
+      return selectedItems.has(key);
     })
-    .reduce((sum, item) => {
+    .map((item) => {
       const product = item.productId || item;
-      return sum + (product.sellingPrice || 0) * (item.quantity || 1);
-    }, 0);
+      return {
+        productId: product._id,
+        name: product.name,
+        price: product.sellingPrice,
+        imageUrl: product.imageUrl?.[0],
+        quantity: item.quantity || 1,
+      };
+    });
+
+  if (checkoutItems.length === 0) {
+    alert("Please select at least one item to checkout.");
+    return;
+  }
+
+  localStorage.setItem("checkoutItems", JSON.stringify(checkoutItems));
+  setShowCart(false);
+  router.push("/checkout");
+};
+  // ── Total ─────────────────────────────────────────────────────────────────
+const selectedTotal = localCart
+  .filter((item, index) => {
+    const product = item.productId || item;
+    return selectedItems.has(product._id || String(index));
+  })
+  .reduce((sum, item) => {
+    const product = item.productId || item;
+    return sum + (product.sellingPrice || 0) * (item.quantity || 1);
+  }, 0);
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -132,7 +117,7 @@ export default function Header() {
   ];
 
   const bottomNavItems = [
-    { label: "About Us", href: "/AboutUs" },
+    { label: "About Us", href: "/aboutUs" },
     { label: "Contact", href: "/contactUs" },
     ...(isLoggedIn
       ? [
@@ -162,13 +147,17 @@ export default function Header() {
 
          <div
             className="relative cursor-pointer"
-            onClick={() => { setShowCart(true); setIsOpen(false); fetchCart(); }}
+            onClick={() => {
+              setShowCart(true);
+              setIsOpen(false);
+              refetchCart();
+            }}
           >
             <ShoppingCart className="w-6 h-6" />
 
-            {cartItems.length > 0 && (
+            {localCart.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 rounded-full">
-                {cartItems.length}
+                {localCart.length}
               </span>
             )}
           </div>
@@ -303,10 +292,10 @@ export default function Header() {
 
         {/* Items */}
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
-          {cartItems.length === 0 ? (
+          {localCart.length === 0 ? (
             <p className="text-gray-400 text-center mt-16 text-sm">Your cart is empty</p>
           ) : (
-            cartItems.map((item: any, index: number) => {
+            localCart.map((item: any, index: number) => {
               const product = item.productId || item;
               const itemKey = product._id || String(index);
               const isChecked = selectedItems.has(itemKey);
@@ -370,7 +359,7 @@ export default function Header() {
         </div>
 
         {/* Footer: Summary + Checkout */}
-        {cartItems.length > 0 && (
+        {localCart.length > 0 && (
           <div className="shrink-0 border-t p-4 flex flex-col gap-3 bg-white">
             <div className="flex justify-between text-sm">
               <span className="text-gray-500">{selectedItems.size} item(s) selected</span>

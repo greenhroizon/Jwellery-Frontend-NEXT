@@ -24,3 +24,33 @@ export const registerUser = async (
   // response.data is the full API response: { token, message, ... }
   return response.data;
 };
+
+
+export const verifyOtpApi = async (otp: string, token: string) => {
+  const res = await axios.post(
+    `${API}/api/v1/user/verify-otp`,
+    { otp },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return res.data;
+};
+
+
+export const resendOtpApi = async (token: string) => {
+  const res = await axios.post(
+    `${API}/api/v1/user/resend-signup-otp`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return res.data;
+};

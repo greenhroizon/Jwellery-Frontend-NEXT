@@ -1,5 +1,6 @@
     import { caramel } from "@/app/fonts";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
     export default function Footer() {
     return (
@@ -48,10 +49,10 @@ import { Button } from "./ui/button";
                 </div>
                 <div className="flex flex-col gap-2">
                     <span className=" text-[22px] font-bold">Information</span>
-                    <span className="text-[18px]">Shipping Policy</span>
-                    <span className="text-[18px]">Exchange Policy</span>
-                    <span className="text-[18px]">Privacy Policy</span>
-                    <span className="text-[18px]">Terms of Use</span>
+                    <span className="text-[18px]"><Link href="/shipping-policy">Shipping Policy</Link></span>
+                    <span className="text-[18px]"><Link href="/exchange-policy">Exchange Policy</Link></span>
+                    <span className="text-[18px]"><Link href="/privacy-policy">Privacy Policy</Link></span>
+                    <span className="text-[18px]"><Link href="/terms">Terms of Use</Link></span>
                 </div>
                 <div className="flex flex-col">
                     <span className=" text-[22px] font-bold">Visit Us</span>

@@ -1,5 +1,6 @@
-import { fetchAllProducts, fetchBanners, fetchBestProducts, fetchCategories, fetchCategoriesProducts, fetchShopProductFunction, getProductsByCategory } from "@/service/dashboardService";
-import { useQuery } from "@tanstack/react-query";
+import { addToCartAPI, addToCartLocal, fetchAllProducts, fetchBanners, fetchBestProducts, fetchCartService, fetchCategories, fetchCategoriesProducts, fetchReels, fetchShopProductFunction, getProductsByCategory } from "@/service/dashboardService";
+import { Reel } from "@/type/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
 // Banners
@@ -75,3 +76,47 @@ export const useProductsByCategory = (categoryId: string) => {
   });
 };
 
+export const useReels = () => {
+  return useQuery<Reel[]>({
+    queryKey: ["reels"],
+    queryFn: fetchReels,
+    staleTime: 1000 * 60 * 5, // 5 min cache
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
+};
+
+export const useAddToCart = () => {
+  return useMutation({
+    mutationFn: async ({
+      productId,
+      productData,
+    }: {
+      productId: string;
+      productData: any;
+    }) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        return await addToCartAPI(productId, token);
+      } else {
+        return addToCartLocal(productData, productId);
+      }
+    },
+  });
+};
+
+export const useCart = () => {
+  const queryClient = useQueryClient();
+
+  const query = useQuery({
+    queryKey: ["cart"],
+    queryFn: fetchCartService,
+  });
+
+  const refetchCart = () => {
+    queryClient.invalidateQueries({ queryKey: ["cart"] });
+  };
+
+  return { ...query, refetchCart };
+};

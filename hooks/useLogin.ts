@@ -1,8 +1,9 @@
 "use client";
 
-import { loginUser, registerUser } from "@/service/authService";
+import { loginUser, registerUser, resendOtpApi, verifyOtpApi } from "@/service/authService";
 import { RegisterPayload, RegisterResponse } from "@/type/api";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { toast } from "sonner";
 
 
@@ -16,8 +17,6 @@ export const useRegister = (onSuccessCallback?: () => void) => {
   return useMutation<RegisterResponse, any, RegisterPayload>({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      // data is already response.data (unwrapped by axios in registerUser)
-      // so token is at data.token NOT data.data.token
       const token = data?.data.token;
 
       if (token) {
@@ -33,4 +32,49 @@ export const useRegister = (onSuccessCallback?: () => void) => {
       );
     },
   });
+};
+
+
+export const useOtp = () => {
+  const [loading, setLoading] = useState(false);
+  const verifyOtp = async (otp: string, token: string) => {
+    try {
+      setLoading(true);
+
+      const data = await verifyOtpApi(otp, token);
+
+      toast.success(data?.message || "OTP verified successfully");
+
+      return data;
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message || "OTP verification failed"
+      );
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+  const resendOtp = async (token: string) => {
+    try {
+      setLoading(true);
+
+      const data = await resendOtpApi(token);
+
+      toast.success(data?.message || "OTP resent successfully");
+
+      return data;
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Failed to resend OTP");
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    verifyOtp,
+    resendOtp,
+    loading,
+  };
 };

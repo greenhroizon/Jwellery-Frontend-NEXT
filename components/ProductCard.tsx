@@ -4,6 +4,7 @@ import { ProductCardProps } from "@/type/api";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useAddToCart } from "@/hooks/useDashboard";
 
 export function ProductCard({
   title,
@@ -12,40 +13,13 @@ export function ProductCard({
   id,
   productData,
 }: ProductCardProps) {
+const { mutate: addToCart, isPending } = useAddToCart();
 
-  const handleAddToCart = async () => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user/cart/add`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          productId: id,
-        }),
-      }
-    );
-  } else {
-    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    const existing = cart.find((item: any) => item._id === id);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({
-        ...productData,
-        quantity: 1,
-      });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
+const handleAddToCart = () => {
+  addToCart({
+    productId: id,
+    productData,
+  });
 };
 
   return (
@@ -69,9 +43,10 @@ export function ProductCard({
 
           <Button
             onClick={handleAddToCart}
+            disabled={isPending}
             className="bg-red-800 ml-auto w-30 h-8"
           >
-            Add to Cart
+            {isPending ? "Adding..." : "Add to Cart"}
           </Button>
         </div>
       </div>

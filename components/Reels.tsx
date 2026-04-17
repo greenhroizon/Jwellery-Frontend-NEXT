@@ -1,26 +1,10 @@
-"use client"
-
+"use client";
 
 import { caramel } from "@/app/fonts";
-import { useState, useEffect, useRef } from "react";
+import { useReels } from "@/hooks/useDashboard";
+import { useState, useRef } from "react";
 
-const API_URL = "https://render-jwellery-application-1.onrender.com/api/v1/user/get-all-reels";
 
-interface Reel {
-  _id: string;
-  title: string;
-  videoUrl: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ApiResponse {
-  success: boolean;
-  message: string;
-  data: Reel[];
-}
-
-// SVG Icons
 const PlayIcon = () => (
   <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
     <circle cx="28" cy="28" r="28" fill="rgba(0,0,0,0.45)" />
@@ -30,7 +14,7 @@ const PlayIcon = () => (
 
 const MuteIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-    <path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.33 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-3.83-2.4-7.11-5.78-8.4-.59-.23-1.22.23-1.22.86v.19c0 .38.25.71.61.85C17.18 6.54 19 9.06 19 12zm-8.71-6.29l-.17.17L12 7.76V6.41c0-.89-1.08-1.33-1.71-.7zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v1.79l2.48 2.48c.01-.08.02-.16.02-.24z" />
+    <path d="M3.63 3.63a.996.996 0 000 1.41L7.29 8.7 7 9H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18c-.49.37-1.02.68-1.6.91-.36.15-.58.53-.58.92 0 .72.73 1.18 1.39.91.8-.33 1.55-.77 2.22-1.31l1.34 1.34a.996.996 0 101.41-1.41L5.05 3.63c-.39-.39-1.02-.39-1.42 0z" />
   </svg>
 );
 
@@ -41,34 +25,20 @@ const UnmuteIcon = () => (
 );
 
 const Reels = () => {
-  const [allReels, setAllReels] = useState<Reel[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: allReels = [], isLoading, error } = useReels();
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState<boolean>(true);
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  console.log(allReels, "get reels");
 
-  useEffect(() => {
-    fetch(API_URL)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch reels");
-        return res.json() as Promise<ApiResponse>;
-      })
-      .then((json) => {
-        setAllReels(json?.data || []);
-        setLoading(false);
-      })
-      .catch((err: Error) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  const handlePlay = (index: number): void => {
+  const handlePlay = (index: number) => {
     setActiveIndex(index);
+
     videoRefs.current.forEach((video, i) => {
       if (!video) return;
+
       if (i === index) {
         video.muted = isMuted;
         video.play().catch(() => {});
@@ -79,20 +49,23 @@ const Reels = () => {
     });
   };
 
-  const toggleMute = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const toggleMute = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+
     setIsMuted((prev) => {
       const newMute = !prev;
+
       if (activeIndex !== null) {
         const currentVideo = videoRefs.current[activeIndex];
         if (currentVideo) currentVideo.muted = newMute;
       }
+
       return newMute;
     });
   };
 
-  // --- Loading State ---
-  if (loading) {
+  // --- Loading ---
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-48">
         <div className="w-9 h-9 rounded-full border-4 border-gray-200 border-t-pink-500 animate-spin" />
@@ -100,17 +73,17 @@ const Reels = () => {
     );
   }
 
-  // --- Error State ---
-  if (error) {
+  // --- Error ---
+  if (error instanceof Error) {
     return (
       <div className="flex items-center justify-center min-h-48">
-        <p className="text-red-500 text-sm">Error: {error}</p>
+        <p className="text-red-500 text-sm">Error: {error.message}</p>
       </div>
     );
   }
 
-  // --- Empty State ---
-  if (!allReels.length) {
+  // --- Empty ---
+  if (allReels.length==0) {
     return (
       <div className="flex items-center justify-center min-h-48">
         <p className="text-gray-400 text-sm">No reels found.</p>
