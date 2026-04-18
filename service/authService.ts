@@ -13,6 +13,13 @@ export const loginUser = async (data: {
   return response.data;
 };
 
+export const googleLoginApi = async ({ idToken }: { idToken: string }) => {
+  const res = await axios.post(`${API}/api/v1/user/google-login`, {
+    idToken,
+  });
+
+  return res.data;
+};
 
 export const registerUser = async (
   data: RegisterPayload

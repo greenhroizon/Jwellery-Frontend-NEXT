@@ -1,49 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-const API_URL =
-  "http://localhost:5000/api/v1/user/get-all-content";
-
-type ContentItem = {
-  id: string;
-  type: string;
-  title: string;
-  content: string;
-};
+import { useExchangePolicy } from "@/hooks/useDashboard";
 
 export default function ShippingPolicyDocs() {
-  const [data, setData] = useState<ContentItem | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { data, isLoading, error } = useExchangePolicy();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(API_URL);
-        const json = await res.json();
-
-        if (!json?.success) {
-          throw new Error("Failed to fetch content");
-        }
-
-        // extract SHIPPING_POLICY
-        const shipping = json.data.find(
-          (item: ContentItem) => item.type === "EXCHANGE_POLICY"
-        );
-
-        setData(shipping || null);
-      } catch (err: any) {
-        setError(err.message || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
@@ -54,7 +16,7 @@ export default function ShippingPolicyDocs() {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center text-red-500">
-        {error}
+        {(error as Error).message}
       </div>
     );
   }

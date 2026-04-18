@@ -41,17 +41,17 @@ if (isError) {
         </div>
       ))}
      <div className="flex flex-col gap-4 items-center px-4 max-w-[2050px] mx-auto">
-<span className="text-[30px] font-medium text-center">
-    Our <span className="italic"><span className={`${caramel.className} text-[50px] text-[#b32126]`}>Signature Collection</span></span>
+<span className="text-[20px] md:text-[30px] font-medium text-center">
+    Our <span className="italic"><span className={`${caramel.className} text-[35px] md:text-[50px] text-[#b32126]`}>Signature Collection</span></span>
   </span>
 
-  <div className="text-[20px] text-center text-[#555]">
-    <p>
+  <div className="text-[15px] md:text-[20px] text-center text-[#555]">
+    <span>
       A curated line of handcrafted jewellery innovations, redefining how adornment is worn and experienced.
-    </p>
-    <p>
+    </span>
+    <span>
       Each piece is conceived with a design-led philosophy, merging aesthetic distinction with thoughtful functionality.
-    </p>
+    </span>
   </div>
 
   {/* Grid Layout */}

@@ -1,5 +1,5 @@
-import { addToCartAPI, addToCartLocal, fetchAllProducts, fetchBanners, fetchBestProducts, fetchCartService, fetchCategories, fetchCategoriesProducts, fetchReels, fetchShopProductFunction, getProductsByCategory } from "@/service/dashboardService";
-import { Reel } from "@/type/api";
+import { addNewsletterApi, addToCartAPI, addToCartLocal, fetchAllProducts, fetchBanners, fetchBestProducts, fetchCartService, fetchCategories, fetchCategoriesProducts, fetchFooterDetails, fetchReels, fetchShopProductFunction, getAllContent, getProductsByCategory } from "@/service/dashboardService";
+import { ContentItem, Reel } from "@/type/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
@@ -11,6 +11,14 @@ export const useBanners = () => {
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     retry: 2,
+  });
+};
+
+export const useFooter = () => {
+  return useQuery({
+    queryKey: ["footer"],
+    queryFn: fetchFooterDetails,
+    staleTime: 1000 * 60 * 10, // cache 10 min
   });
 };
 
@@ -76,6 +84,20 @@ export const useProductsByCategory = (categoryId: string) => {
   });
 };
 
+export const useNewsletter = () => {
+  return useMutation({
+    mutationFn: addNewsletterApi,
+
+    onSuccess: (data) => {
+      console.log("Success:", data);
+    },
+
+    onError: (error: any) => {
+      console.error("Error:", error?.response?.data || error.message);
+    },
+  });
+};
+
 export const useReels = () => {
   return useQuery<Reel[]>({
     queryKey: ["reels"],
@@ -119,4 +141,65 @@ export const useCart = () => {
   };
 
   return { ...query, refetchCart };
+};
+
+export const useShippingPolicy = () => {
+  return useQuery<ContentItem | null>({
+    queryKey: ["shipping-policy"],
+    queryFn: async () => {
+      const data = await getAllContent();
+
+      const shipping = data.find(
+        (item) => item.type === "SHIPPING_POLICY"
+      );
+
+      return shipping || null;
+    },
+  });
+};
+
+export const useExchangePolicy = () => {
+  return useQuery<ContentItem | null>({
+    queryKey: ["Exchange-policy"],
+    queryFn: async () => {
+      const data = await getAllContent();
+
+      const shipping = data.find(
+        (item) => item.type === "EXCHANGE_POLICY"
+      );
+
+      return shipping || null;
+    },
+  });
+};
+
+export const usePrivacyPolicy = () => {
+  return useQuery<ContentItem | null>({
+    queryKey: ["Privacy-policy"],
+    queryFn: async () => {
+      const data = await getAllContent();
+
+      const shipping = data.find(
+        (item) => item.type === "PRIVACY_POLICY"
+      );
+
+      return shipping || null;
+    },
+  });
+};
+
+
+export const useTermsandCondition = () => {
+  return useQuery<ContentItem | null>({
+    queryKey: ["Terms-policy"],
+    queryFn: async () => {
+      const data = await getAllContent();
+
+      const shipping = data.find(
+        (item) => item.type === "TERMS_AND_CONDITIONS"
+      );
+
+      return shipping || null;
+    },
+  });
 };

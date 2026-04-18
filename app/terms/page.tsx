@@ -1,72 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useTermsandCondition } from "@/hooks/useDashboard";
 
-const API_URL =
-  "http://localhost:5000/api/v1/user/get-all-content";
-
-type ContentItem = {
-  id: string;
-  type: string;
-  title: string;
-  content: string;
-};
 
 export default function ShippingPolicyDocs() {
-  const [data, setData] = useState<ContentItem | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(API_URL);
-        const json = await res.json();
-
-        if (!json?.success) {
-          throw new Error("Failed to fetch content");
-        }
-
-        // extract SHIPPING_POLICY
-        const shipping = json.data.find(
-          (item: ContentItem) => item.type === "TERMS_AND_CONDITIONS"
-        );
-
-        setData(shipping || null);
-      } catch (err: any) {
-        setError(err.message || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        {error}
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        No TERMS AND CONDITIONS
-      </div>
-    );
-  }
-
+   const { data, isLoading, error } = useTermsandCondition();
+ 
+   if (isLoading) {
+     return (
+       <div className="min-h-screen flex items-center justify-center">
+         <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
+       </div>
+     );
+   }
+ 
+   if (error) {
+     return (
+       <div className="min-h-screen flex items-center justify-center text-red-500">
+         {(error as Error).message}
+       </div>
+     );
+   }
+ 
+   if (!data) {
+     return (
+       <div className="min-h-screen flex items-center justify-center">
+         No Shipping Policy Found
+       </div>
+     );
+   }
  return (
   <div className="min-h-screen bg-[#f5f5f5] py-6 px-3">
         {/* Title */}

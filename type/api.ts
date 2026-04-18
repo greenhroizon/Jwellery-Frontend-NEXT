@@ -91,3 +91,11 @@ export interface ApiResponse {
   message: string;
   data: Reel[];
 }
+
+
+export type ContentItem = {
+  id: string;
+  type: string;
+  title: string;
+  content: string;
+};

@@ -20,6 +20,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useCustomOrder } from "@/hooks/useCustomOrder";
 import { caramel } from "@/app/fonts";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function Customcard() {
   const [type, setType] = useState("");
@@ -162,6 +163,9 @@ export default function Customcard() {
               className="mt-2 bg-black text-white hover:bg-gray-800 p-4">
               {isPending ? "Submitting..." : "Submit Request"}
             </Button>
+
+            <span className="text-center">Or</span>
+            <GoogleLoginButton/>
 
           </div>
         </div>

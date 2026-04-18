@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useLogin } from "@/hooks/useLogin";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -120,6 +121,8 @@ export default function SignIn() {
               >
                 New here? Sign up
               </Link>
+               <span className="text-center">Or</span>
+               <GoogleLoginButton/>
             </div>
 
           </form>

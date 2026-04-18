@@ -103,7 +103,7 @@ const Reels = () => {
       </div>
 
       {/* Reels scroll row */}
-      <div className="flex justify-center gap-4 overflow-x-auto px-5 pb-6 scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex md:justify-center gap-4 overflow-x-auto px-5 pb-6 scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {allReels.map((reel, index) => {
           const isActive = activeIndex === index;
 

@@ -1,3 +1,4 @@
+import { ContentItem } from "@/type/api";
 import axios from "axios";
 
 export const API = process.env.NEXT_PUBLIC_API_URL;
@@ -58,6 +59,11 @@ export const fetchReels = async () => {
   return res.data?.data || []; 
 };
 
+export const addNewsletterApi = async (data: { email: string }) => {
+  const response = await axios.post(`${API}/api/v1/user/add-newsletter`, data);
+  return response.data;
+};
+
 export const addToCartAPI = async (productId: string, token: string) => {
   const res = await axios.post(
     `${API}/api/v1/user/cart/add`,
@@ -108,3 +114,18 @@ export const fetchCartService = async () => {
   }
 };
 
+
+export const getAllContent = async (): Promise<ContentItem[]> => {
+  const res = await axios.get(`${API}/api/v1/user/get-all-content`);
+
+  if (!res.data?.success) {
+    throw new Error("Failed to fetch content");
+  }
+
+  return res.data.data;
+};
+
+export const fetchFooterDetails = async () => {
+  const res = await axios.get(`${API}/api/v1/user/get-in-touch`);
+  return res.data?.data?.[0] || null;
+};

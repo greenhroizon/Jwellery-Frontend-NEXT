@@ -160,7 +160,7 @@ const handleBuyNow = () => {
             onClick={() => toggleSection("quantity")}
             className="flex justify-between w-full font-semibold text-lg"
           >
-            Quantity
+            No of Stocks
             <span>{openSection === "quantity" ? "▲" : "▼"}</span>
           </button>
 
