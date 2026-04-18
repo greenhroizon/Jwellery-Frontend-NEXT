@@ -136,9 +136,9 @@ const handleBuyNow = () => {
               backgroundImage: `url(${IMAGE_BASE_URL}/${selectedImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: `${
-                imageRef.current?.clientWidth * ZOOM
+                (imageRef.current?.clientWidth ?? 0) * ZOOM
               }px ${
-                imageRef.current?.clientHeight * ZOOM
+                (imageRef.current?.clientHeight ?? 0) * ZOOM
               }px`,
               backgroundPosition: `
                 -${magnifier.x * ZOOM - LENS / 2}px
