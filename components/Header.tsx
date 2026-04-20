@@ -57,13 +57,16 @@ export default function Header() {
   };
 
   const handleDecrease = (index: number) => {
-    setLocalCart((prev) =>
-      prev.map((item, i) =>
-        i === index
-          ? { ...item, quantity: Math.max(1, (item.quantity || 1) - 1) }
-          : item
-      )
-    );
+    setLocalCart((prev) => {
+      const item = prev[index];
+      if ((item.quantity || 1) <= 1) {
+        // Remove the item entirely
+        return prev.filter((_, i) => i !== index);
+      }
+      return prev.map((item, i) =>
+        i === index ? { ...item, quantity: item.quantity - 1 } : item
+      );
+    });
   };
 
   // ── Checkbox ──────────────────────────────────────────────────────────────
@@ -74,6 +77,21 @@ export default function Header() {
       return next;
     });
   };
+
+const handleRemove = (index: number) => {
+  setLocalCart((prev) => {
+    const item = prev[index];
+    const product = item.productId || item;
+    const itemKey = product._id || String(index);
+    // Clean up selectedItems too
+    setSelectedItems((sel) => {
+      const next = new Set(sel);
+      next.delete(itemKey);
+      return next;
+    });
+    return prev.filter((_, i) => i !== index);
+  });
+};
 const handleCheckout = () => {
   const checkoutItems = localCart
     .filter((item, index) => {
@@ -366,6 +384,13 @@ const selectedTotal = localCart
                       </button>
                     </div>
                   </div>
+                    <button
+                    onClick={() => handleRemove(index)}
+                    className="text-gray-400 hover:text-red-500 -mt-10 transition shrink-0 text-xs"
+                    aria-label="Remove item"
+                  >
+                    ✕
+                  </button>
                 </div>
               );
             })
