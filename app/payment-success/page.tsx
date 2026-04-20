@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   CheckCircle,
@@ -11,7 +11,7 @@ import {
 
 type StatusType = "success" | "failed" | "cancelled";
 
-export default function PaymentStatusPage() {
+function PaymentStatusContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -92,25 +92,20 @@ export default function PaymentStatusPage() {
       <div
         className={`w-full max-w-md bg-white rounded-2xl shadow-lg border-t-4 ${current.color} p-8 text-center`}
       >
-        {/* Icon */}
         <div className="flex justify-center mb-4">{current.icon}</div>
 
-        {/* Title */}
         <h1 className="text-2xl font-semibold text-gray-800">
           {current.title}
         </h1>
 
-        {/* Subtitle */}
         <p className="text-gray-500 mt-2">{current.subtitle}</p>
 
-        {/* Order ID */}
         {orderId && (
           <p className="mt-4 text-sm text-gray-600">
             <span className="font-semibold">Order ID:</span> {orderId}
           </p>
         )}
 
-        {/* Button */}
         <button
           onClick={current.action}
           className="mt-6 inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition"
@@ -120,5 +115,21 @@ export default function PaymentStatusPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function PaymentStatusPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 text-center">
+            <p className="text-gray-500">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <PaymentStatusContent />
+    </Suspense>
   );
 }
