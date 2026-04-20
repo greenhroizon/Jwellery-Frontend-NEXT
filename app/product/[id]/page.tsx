@@ -195,8 +195,16 @@ const handleBuyNow = () => {
         <div className="flex items-center gap-3 p-3">
           <span>🚚</span>
           <div>
-            <p className="font-semibold">Free Shipping On Orders</p>
-            <p className="text-sm text-gray-500">Rs 999+</p>
+            <p className="font-semibold">Shipping Information</p>
+
+            <p className="text-sm text-gray-500">
+              Free delivery on orders above <span className="font-medium">₹5000</span>
+            </p>
+
+            <p className="text-sm text-gray-500">
+              Orders below <span className="font-medium">₹5000</span> have delivery charges of{" "}
+              <span className="font-medium">₹200</span>
+            </p>
           </div>
         </div>
 

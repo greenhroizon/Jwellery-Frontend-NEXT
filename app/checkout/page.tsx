@@ -167,54 +167,79 @@ export default function CheckoutPage() {
   // `orderData` is the object inside res.data.data from your order/create API.
   // It must contain `amount`, `currency`, and `razorpayOrderId` (or whichever
   // field your backend returns for the Razorpay order id).
-  const openRazorpay = async (orderData: any) => {
-    const loaded = await loadRazorpayScript();
-    if (!loaded) {
-      toast.error("Failed to load payment gateway. Please try again.");
-      setLoading(false);
-      return;
-    }
+const openRazorpay = async (orderData: any) => {
+  const loaded = await loadRazorpayScript();
+  const token = localStorage.getItem("token");
+  if (!loaded) {
+    toast.error("Failed to load payment gateway.");
+    setLoading(false);
+    return;
+  }
 
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: orderData.amount * 100,              // paise
-      currency: orderData.currency || "INR",
-      name: "Your Store Name",
-      description: "Order Payment",
-      order_id: orderData.razorpayOrderId,         // ← adjust field name if needed
-      prefill: {
-        name: `${form.firstName} ${form.lastName}`.trim(),
-        contact: form.contactNumber,
-        email: form.email || "",
-      },
-      theme: { color: "#b91c1c" },
+  const options = {
+    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
-      handler: function (response: any) {
-        // Called when payment is successful
-        toast.success("Payment successful! Your order is placed. 🎉");
-        localStorage.removeItem("checkoutItems");
-        setItems([]);
+    amount: orderData.amount, // ✅ already in paise
+    currency: orderData.currency || "INR",
+
+    name: "Your Store Name",
+    description: "Order Payment",
+
+    order_id: orderData.razorpayOrderId, // ✅ MOST IMPORTANT
+    
+    handler: async function (response: any) {
+      try {
+        const verifyRes = await axios.post(
+          `${API}/api/v1/user/verify-payment`,
+          {
+            orderId: orderData.orderId, // DB orderId
+            razorpayOrderId: response.razorpay_order_id,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpaySignature: response.razorpay_signature,
+          },
+          token
+            ? {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            : {} // no headers for guest
+        );
+
+        if (verifyRes.data?.success) {
+          toast.success("Payment verified & order placed 🎉");
+
+          localStorage.removeItem("checkoutItems");
+          setItems([]);
+
+          router.push(`/payment-success?orderId=${orderData.orderId}`);
+        } else {
+          toast.error("Payment verification failed ❌");
+        }
+      } catch (err) {
+        toast.error("Verification failed. Please contact support.");
+      } finally {
         setLoading(false);
-        setTimeout(() => router.push("/"), 1800);
+      }
+    },
+
+    modal: {
+      ondismiss: () => {
+        toast("Payment cancelled.", { icon: "⚠️" });
+        setLoading(false);
       },
-
-      modal: {
-        ondismiss: function () {
-          toast("Payment cancelled.", { icon: "⚠️" });
-          setLoading(false);
-        },
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-
-    rzp.on("payment.failed", function (response: any) {
-      toast.error(`Payment failed: ${response.error?.description || "Unknown error"}`);
-      setLoading(false);
-    });
-
-    rzp.open();
+    },
   };
+
+  const rzp = new window.Razorpay(options);
+
+  rzp.on("payment.failed", function (response: any) {
+    toast.error(response.error?.description || "Payment failed");
+    setLoading(false);
+  });
+
+  rzp.open();
+};
 
   // ─── Place Order ──────────────────────────────────────────────────────────
   const handleCreateOrder = async () => {
@@ -241,9 +266,32 @@ export default function CheckoutPage() {
 
       if (token) {
         // ── LOGGED-IN FLOW ────────────────────────────────────────────
+        if (!addressId) {
+          const createRes = await axios.post(
+            `${API}/api/v1/user/address`,
+            {
+              country: form.country,
+              firstName: form.firstName,
+              lastName: form.lastName,
+              contactNumber: form.contactNumber,
+              address: form.address,
+              apartment: form.apartment,
+              city: form.city,
+              state: form.state,
+              pincode: form.pincode,
+              label: "Home",
+              isDefault: true,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
 
+          const newAddr = createRes.data?.data?.data;
+          // update local state
+          setAddressId(newAddr._id);
+          setSavedAddress(newAddr);
+        }
         // 1. Patch address if changed
-        if (isAddressChanged() && addressId) {
+        else if(isAddressChanged() && addressId) {
           await axios.patch(
             `${API}/api/v1/user/address/${addressId}`,
             {
@@ -266,7 +314,7 @@ export default function CheckoutPage() {
         // 2. Create order
         const payload: any = {
           items: items.map((item) => ({
-            productId: item._id,
+            productId: item.productId,
             quantity: item.quantity,
           })),
           addressId,
@@ -309,10 +357,43 @@ export default function CheckoutPage() {
       }
 
       toast.dismiss(toastId);
-      toast.success("Order created! Opening payment gateway...");
+      toast.success("Order created! Initializing payment...");
 
-      // ── Open Razorpay ──────────────────────────────────────────────
-      await openRazorpay(orderData);
+      try {
+        // 👉 STEP 1: Call payment API using orderId
+        const paymentRes = await axios.post(
+          `${API}/api/v1/user/payment/create/${orderData._id}`,
+          {
+            paymentMethod: "ONLINE",
+          },
+          token
+            ? { headers: { Authorization: `Bearer ${token}` } }
+            : {}
+        );
+
+        // 👉 STEP 2: Get Razorpay data
+        const paymentData = paymentRes.data?.data;
+
+        if (!paymentData?.razorpayOrder?.id) { 
+          throw new Error("Invalid payment response");
+        }
+
+        await openRazorpay({
+          orderId: paymentData.payment.orderId,              // ✅ FIXED
+          razorpayOrderId: paymentData.razorpayOrder.id,     // ✅ FIXED
+          amount: paymentData.razorpayOrder.amount,          // ✅ KEEP IN PAISE
+          currency: paymentData.razorpayOrder.currency,
+        });
+
+      } catch (err: any) {
+        console.error("Payment init error:", err);
+
+        toast.error(
+          err?.response?.data?.message || "Failed to initialize payment"
+        );
+
+        setLoading(false);
+      }
     } catch (err: any) {
       toast.dismiss(toastId);
       toast.error(err?.response?.data?.message || "Order failed. Please try again.");
@@ -320,6 +401,7 @@ export default function CheckoutPage() {
     }
   };
 
+  const shippingCharge = (subtotal - discount) <= 5000 ? 200 : 0;
   const isLoggedIn =
     typeof window !== "undefined" ? !!localStorage.getItem("token") : false;
 
@@ -469,12 +551,22 @@ export default function CheckoutPage() {
               </div>
             )}
 
+            {items.length > 0 && (
+              <div className="text-sm text-gray-600 flex justify-between mt-1">
+                <span>Shipping Charges</span>
+                {shippingCharge > 0 ? (
+                  <span>₹{shippingCharge.toFixed(2)}</span>
+                ) : (
+                  <span className="text-green-600">Free</span>
+                )}
+              </div>
+            )}
             <hr className="my-4" />
 
             <div className="flex justify-between font-bold text-lg">
               <span>Total</span>
               {items.length > 0 ? (
-                <span>₹{(subtotal - discount).toFixed(2)}</span>
+                <span>₹{(subtotal - discount + shippingCharge).toFixed(2)}</span>  
               ) : (
                 <span className="text-gray-400 text-sm font-normal">No items in cart</span>
               )}

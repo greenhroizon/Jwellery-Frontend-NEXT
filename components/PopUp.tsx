@@ -15,7 +15,6 @@ interface UserInfoForm {
   firstName: string;
   lastName: string;
   fullName: string;
-  email: string;
   mobileNumber: string;
   location: string;
 }
@@ -23,7 +22,6 @@ interface UserInfoForm {
 // ─── Stub – replace with your real API call ───────────────────────────────────
 async function addUserInfoApi(payload: {
   name: string;
-  email: string;
   mobileNumber: string;
   location: string;
 }): Promise<{ success: boolean }> {
@@ -54,7 +52,6 @@ export default function PopUp() {
     firstName: "",
     lastName: "",
     fullName: "",
-    email: "",
     mobileNumber: "",
     location: "",
   });
@@ -79,24 +76,29 @@ export default function PopUp() {
     localStorage.setItem(POPUP_LAST_CLOSED_KEY, Date.now().toString());
   }, []);
 
-  // Poll every 30 s; show popup once interval has elapsed
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const hasSubmitted = localStorage.getItem(POPUP_SUBMITTED_KEY) === "true";
-      if (isUserLoggedIn() || hasSubmitted || showUserInfoPopup) return;
+  const hasSubmitted =
+    localStorage.getItem(POPUP_SUBMITTED_KEY) === "true";
 
-      const lastClosed = parseInt(
-        localStorage.getItem(POPUP_LAST_CLOSED_KEY) ?? "0",
-        10
-      );
+  if (isUserLoggedIn() || hasSubmitted) return;
 
-      if (Date.now() - lastClosed >= POPUP_INTERVAL_MS) {
-        setShowUserInfoPopup(true);
-      }
-    }, 1000);
+  setShowUserInfoPopup(true);
+}, []);
 
-    return () => clearInterval(intervalId);
-  }, [showUserInfoPopup]);
+useEffect(() => {
+  if (showUserInfoPopup) return;
+
+  const hasSubmitted =
+    localStorage.getItem(POPUP_SUBMITTED_KEY) === "true";
+
+  if (isUserLoggedIn() || hasSubmitted) return;
+
+  const timer = setTimeout(() => {
+    setShowUserInfoPopup(true);
+  }, 30 * 1000); // 30 seconds
+
+  return () => clearTimeout(timer);
+}, [showUserInfoPopup]);
 
   // Lock body scroll while popup is open
   useEffect(() => {
@@ -132,7 +134,6 @@ export default function PopUp() {
 
       const payload = {
         name: userInfoForm.fullName,
-        email: userInfoForm.email,
         mobileNumber: userInfoForm.mobileNumber,
         location: userInfoForm.location,
       };
@@ -146,7 +147,6 @@ export default function PopUp() {
           firstName: "",
           lastName: "",
           fullName: "",
-          email: "",
           mobileNumber: "",
           location: "",
         });
@@ -233,15 +233,6 @@ export default function PopUp() {
             {/* Email / Mobile */}
             <div className="grid grid-cols-2 gap-3">
               <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-                className={inputCls}
-                value={userInfoForm.email}
-                onChange={handleUserInfoChange}
-              />
-              <input
                 type="tel"
                 name="mobileNumber"
                 placeholder="Mobile"
@@ -252,10 +243,7 @@ export default function PopUp() {
                 value={userInfoForm.mobileNumber}
                 onChange={handleUserInfoChange}
               />
-            </div>
-
-            {/* Location */}
-            <input
+                      <input
               name="location"
               placeholder="Location"
               required
@@ -263,6 +251,9 @@ export default function PopUp() {
               value={userInfoForm.location}
               onChange={handleUserInfoChange}
             />
+            </div>
+
+            {/* Location */}
 
             {/* Submit */}
             <button
