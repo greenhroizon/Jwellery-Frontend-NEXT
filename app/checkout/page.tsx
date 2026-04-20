@@ -491,7 +491,7 @@ const openRazorpay = async (orderData: any) => {
                         value={couponCode}
                         onChange={(e) => { setCouponCode(e.target.value); setShowDropdown(true); }}
                         onFocus={() => setShowDropdown(true)}
-                        className="border p-2 rounded-lg flex-1"
+                        className="border p-2 w-20 rounded-lg flex-1"
                         disabled={!!appliedCoupon}
                       />
                       {appliedCoupon ? (
@@ -517,7 +517,7 @@ const openRazorpay = async (orderData: any) => {
                     {coupons
                       .filter((c) => c.code.toLowerCase().includes(couponCode.toLowerCase()))
                       .map((coupon) => (
-                        <div key={coupon.id} onClick={() => applyCoupon(coupon)} className="p-3 hover:bg-gray-50 cursor-pointer border-b last:border-0">
+                        <div key={coupon.id} onClick={() => applyCoupon(coupon)} className="p-1 md:p-3 hover:bg-gray-50 cursor-pointer border-b last:border-0">
                           <div className="flex justify-between items-center">
                             <span className="font-semibold text-sm">{coupon.code}</span>
                             <span className="text-green-600 text-sm font-medium">
