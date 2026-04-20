@@ -97,6 +97,9 @@ export default function ShopTheLook() {
 
   const look = looks[current];
 
+  const videoLook = looks[(current + 1) % looks.length];
+const imageLook = look;
+
   return (
     <section className="py-8 md:py-12 px-4 lg:min-h-screen flex flex-col items-center">
       {/* Heading */}
@@ -130,8 +133,8 @@ export default function ShopTheLook() {
             <div className="relative w-[65%] flex-shrink-0 rounded-md overflow-hidden">
               <div className="relative aspect-[3/3] w-full">
                 <video
-                  key={look.videoUrl} // ✅ re-renders when look changes
-                  src={`${IMAGE_BASE_URL}/${look.videoUrl}`}
+                 key={videoLook.videoUrl}
+src={`${IMAGE_BASE_URL}/${videoLook.videoUrl}`}
                   className="w-full h-full object-cover"
                   autoPlay
                   loop
