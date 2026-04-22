@@ -266,6 +266,7 @@ const openRazorpay = async (orderData: any) => {
 
       if (token) {
         // ── LOGGED-IN FLOW ────────────────────────────────────────────
+        let resolvedAddressId = addressId;
         if (!addressId) {
           const createRes = await axios.post(
             `${API}/api/v1/user/address`,
@@ -284,9 +285,8 @@ const openRazorpay = async (orderData: any) => {
             },
             { headers: { Authorization: `Bearer ${token}` } }
           );
-
           const newAddr = createRes.data?.data?.data;
-          // update local state
+          resolvedAddressId= newAddr._id;
           setAddressId(newAddr._id);
           setSavedAddress(newAddr);
         }
@@ -317,7 +317,7 @@ const openRazorpay = async (orderData: any) => {
             productId: item.productId,
             quantity: item.quantity,
           })),
-          addressId,
+          addressId:resolvedAddressId,
           currency: "INR",
         };
         if (couponCode) payload.couponCode = couponCode;

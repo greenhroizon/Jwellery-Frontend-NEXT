@@ -73,12 +73,11 @@ export default function Customcard() {
     );
   };
   return (
-    <div>    <h2 className={`${caramel.className} text-[50px] text-center text-[#b32126]`}>
-              Custom Orders
-            </h2>
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <Card className="md:h-[500px] lg:h-[580px] xl:h-[620px] w-full max-w-5xl bg-[#fdf7e6] overflow-hidden p-0 shadow-xl rounded-3xl">
-        
+    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+      <h2 className={`${caramel.className} text-[50px] text-center text-[#b32126] mb-2`}>
+        Custom Orders
+      </h2>
+      <Card className="md:h-[500px] lg:h-[580px] xl:h-[620px] w-full max-w-5xl bg-[#fdf7e6] overflow-hidden p-0 shadow-xl rounded-3xl"> 
         <div className="flex h-full flex-col md:flex-row">
           
           {/* Image Section */}
@@ -170,7 +169,6 @@ export default function Customcard() {
           </div>
         </div>
       </Card>
-    </div>
     </div>
   );
 }

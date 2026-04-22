@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useContact } from "@/hooks/useContact";
+import { caramel } from "@/app/fonts";
 
 export default function ContactUsCard() {
     const [firstName, setFirstName] = useState("");
@@ -56,8 +57,15 @@ export default function ContactUsCard() {
     );
   };
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-6">
-      <Card className="md:h-[500px] lg:h-[580px] xl:h-[620px] w-full max-w-5xl bg-[#fdf7e6] overflow-hidden p-0 shadow-xl rounded-3xl">
+<div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6">
+  <h2 className={`${caramel.className} text-[50px] text-center text-[#b32126]`}>
+    Contact Us
+  </h2>
+  <div className="text-[20px] text-[#555] text-center mb-4">
+    Send us your custom order request/ query/ emergency info or order/ message
+  </div>
+
+  <Card className="md:h-[500px] lg:h-[580px] xl:h-[620px] w-full max-w-5xl bg-[#fdf7e6] overflow-hidden p-0 shadow-xl rounded-3xl">
         
         <div className="flex h-full flex-col md:flex-row">
           

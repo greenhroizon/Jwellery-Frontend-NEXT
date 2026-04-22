@@ -151,32 +151,34 @@ const selectedTotal = localCart
   return (
     <>
       {/* ── HEADER ─────────────────────────────────────────────────────────── */}
-  <header className="bg-[#c9b09a] sticky top-0 z-50 shadow-md">
+<header className="bg-[#c9b09a] sticky top-0 z-50 shadow-md">
   <div className="max-w-8xl mx-auto py-2 flex items-center justify-between px-6">
-    <button
-      onClick={() => { setIsOpen(true); setShowCart(false); }}
-      className="text-2xl text-[#544120]"
-    >
-      ☰
-    </button>
+    
+    {/* Left - equal width */}
+    <div className="flex items-center w-1/3">
+      <button
+        onClick={() => { setIsOpen(true); setShowCart(false); }}
+        className="text-2xl text-[#544120]"
+      >
+        ☰
+      </button>
+    </div>
 
-    <div className="flex justify-center flex-1">
+    {/* Center - logo truly centered */}
+    <div className="flex justify-center w-1/3">
       <img src="/Images/logo.png" className="w-18 h-15" alt="logo" />
     </div>
 
-    <div className="flex items-center gap-4">
-      {/* Wishlist heart */}
-     <button
-      onClick={() => {
-        router.push("/wishlist");
-      }}
-      className="relative group"
-      aria-label="Wishlist"
-    >
-    <FaRegHeart size={22} className="text-black" />
-    </button>
+    {/* Right - equal width */}
+    <div className="flex items-center justify-end gap-4 w-1/3">
+      <button
+        onClick={() => router.push("/wishlist")}
+        className="relative group"
+        aria-label="Wishlist"
+      >
+        <FaRegHeart size={22} className="text-black" />
+      </button>
 
-      {/* Cart */}
       <div
         className="relative cursor-pointer"
         onClick={() => {
@@ -193,6 +195,7 @@ const selectedTotal = localCart
         )}
       </div>
     </div>
+
   </div>
 </header>
 

@@ -44,7 +44,7 @@ if (isError) {
           />
         </div>
       ))}
-     <div className="flex flex-col gap-4 items-center px-4 max-w-[2050px] mx-auto">
+     <div className="flex flex-col gap-4 items-center px-4 ">
 <span className="text-[20px] md:text-[30px] font-medium text-center">
     Our <span className="italic"><span className={`${caramel.className} text-[35px] md:text-[50px] text-[#b32126]`}>Signature Collection</span></span>
   </span>
@@ -59,7 +59,7 @@ if (isError) {
   </div>
 
   {/* Grid Layout */}
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-6xl">
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-7xl">
     
     <div className="relative w-full h-[400px]">
       <Image src="/Images/Index.jpg" alt="" fill className="object-cover rounded-2xl" />
