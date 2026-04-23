@@ -178,16 +178,16 @@ const handleBuyNow = () => {
 
         {/* Price */}
         <div className="text-3xl text-[#c41e3a] font-bold">
-          Rs {product.sellingPrice}/-
+          Rs {product.sellingPrice.toLocaleString("en-IN")}/-
         </div>
 
         {/* Tax */}
-        <p className="text-gray-500 text-sm">
+        <p className="text-[#555] font-semibold text-sm">
           Tax included. Shipping calculated at checkout
         </p>
 
         {/* Description */}
-        <p className="text-gray-700 leading-relaxed">
+        <p className="text-[#555] font-semibold">
           {product.description}
         </p>
 
@@ -195,13 +195,13 @@ const handleBuyNow = () => {
         <div className="flex items-center gap-3 p-3">
           <span>🚚</span>
           <div>
-            <p className="font-semibold">Shipping Information</p>
+            <p className="text-[#555] font-semibold ">Shipping Information</p>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[#555] font-semibold ">
               Free delivery on orders above <span className="font-medium">₹5000</span>
             </p>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[#555] font-semibold ">
               Orders below <span className="font-medium">₹5000</span> have delivery charges of{" "}
               <span className="font-medium">₹200</span>
             </p>
@@ -219,7 +219,7 @@ const handleBuyNow = () => {
           </button>
 
           {openSection === "returns" && (
-            <p className="text-gray-600 mt-2 whitespace-pre-line">
+            <p className="text-[#555] font-semibold  mt-2 whitespace-pre-line">
               {product.benefits}
             </p>
           )}
@@ -234,7 +234,7 @@ const handleBuyNow = () => {
           </button>
 
           {openSection === "quantity" && (
-            <p className="text-gray-600 font-bold mt-2 whitespace-pre-line">
+            <p className="text-[#555] font-semibold mt-2 whitespace-pre-line">
               {product.quantity}
             </p>
           )}
@@ -250,7 +250,7 @@ const handleBuyNow = () => {
           </button>
 
           {openSection === "use" && (
-            <p className="text-gray-600 mt-2">
+            <p className="text-[#555] font-semibold  mt-2">
               {product.use}
             </p>
           )}
@@ -266,7 +266,7 @@ const handleBuyNow = () => {
           </button>
 
           {openSection === "info" && (
-            <p className="text-gray-600 mt-2 whitespace-pre-line">
+            <p className="text-[#555] font-semibold  mt-2 whitespace-pre-line">
               {product.additionalInfo}
             </p>
           )}

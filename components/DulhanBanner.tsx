@@ -1,10 +1,12 @@
+import { caramel } from "@/app/fonts";
+
 export default function DulhanBanner() {
   return (
     <section className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center md:justify-between px-10 md:px-20 py-16 gap-10">
 
       {/* LEFT: Text */}
-      <div className="flex flex-col gap-5 max-w-sm">
-        <h2 className="text-4xl md:text-5xl font-light tracking-widest text-gray-900 uppercase">
+      <div className="flex flex-col gap-2 max-w-sm">
+        <h2  className={`text-[50px] ${caramel.className} text-[#b32126]`}>
           Dulhan
         </h2>
 

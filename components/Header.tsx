@@ -206,7 +206,7 @@ const selectedTotal = localCart
 
       {/* ── SIDEBAR ────────────────────────────────────────────────────────── */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-[#f3efe8] shadow-lg
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg
         transform transition-transform duration-300 z-50
         overflow-y-auto scroll-smooth pb-10
         ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
@@ -226,7 +226,7 @@ const selectedTotal = localCart
               <Link
                 href={href}
                 className={`flex-1 pl-5 py-3 text-xl font-medium
-                ${isActive ? "text-gray-900 font-semibold" : "text-gray-500 hover:text-blue-600"}`}
+                ${isActive ? "text-gray-900 font-semibold" : "text-black hover:text-blue-600"}`}
               >
                 {label}
               </Link>
@@ -240,14 +240,14 @@ const selectedTotal = localCart
               onClick={() => { setShowFunction(!showFunction); setShowProduct(false); }}
               className="flex items-center justify-between px-5 py-3 cursor-pointer"
             >
-              <span className="text-xl text-gray-500">Shop by Function</span>
+              <span className="text-xl text-black">Shop by Function</span>
               <span>{showFunction ? "−" : "+"}</span>
             </div>
             {showFunction && (
               <div className="bg-[#eae3d8]">
                 {shopByFunctionCategories.map((item: any) => (
                   <Link key={item._id} href={`/categories/${item._id}`} onClick={() => setIsOpen(false)}>
-                    <div className="pl-10 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
+                    <div className="pl-10 py-2 text-black hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
                       {item.name}
                     </div>
                   </Link>
@@ -262,14 +262,14 @@ const selectedTotal = localCart
             onClick={() => { setShowProduct(!showProduct); setShowFunction(false); }}
             className="flex items-center justify-between px-5 py-3 cursor-pointer"
           >
-            <span className="text-xl text-gray-500">Shop by Product</span>
+            <span className="text-xl text-black">Shop by Product</span>
             <span>{showProduct ? "−" : "+"}</span>
           </div>
           {showProduct && (
             <div className="bg-[#eae3d8]">
               {productCategories.map((item: any) => (
                 <Link key={item._id} href={`/categories/${item._id}`} onClick={() => setIsOpen(false)}>
-                  <div className="pl-10 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
+                  <div className="pl-10 py-2 text-black hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
                     {item.name}
                   </div>
                 </Link>
@@ -298,7 +298,7 @@ const selectedTotal = localCart
                 <Link
                   href={href}
                   className={`flex-1 pl-5 py-3 text-xl font-medium
-                  ${isActive ? "text-gray-900 font-semibold" : "text-gray-500 hover:text-blue-600"}`}
+                  ${isActive ? "text-gray-900 font-semibold" : "text-black hover:text-blue-600"}`}
                 >
                   {label}
                 </Link>

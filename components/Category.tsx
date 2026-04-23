@@ -21,7 +21,7 @@ export default function Category() {
   return (
     <div className="max-w-8xl mx-auto px-6 py-10 items-center">
       <div className="flex flex-col p-4">
-        <span className={`${caramel.className} text-center text-[30px] md:text-[50px] text-[#b32126]`}>Categories</span>
+        <span className={`${caramel.className} text-center text-[30px] md:text-[60px] text-[#b32126]`}>Categories</span>
           <span className="text-center text-[15px] md:text-[20px] text-[#555]">Shop appropriate to your wedding function</span>
       </div>
 

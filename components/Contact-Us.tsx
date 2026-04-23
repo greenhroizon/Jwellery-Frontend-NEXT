@@ -72,7 +72,7 @@ export default function ContactUsCard() {
           {/* Image Section */}
           <div className="relative hidden md:block w-1/2 h-full">
             <Image
-              src="/Images/horse-image.JPG"
+              src="/Images/DSC08861-Edit.jpeg"
               alt="Sign up"
               fill
               className="object-fill"

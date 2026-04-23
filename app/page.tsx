@@ -45,8 +45,8 @@ if (isError) {
         </div>
       ))}
      <div className="flex flex-col gap-4 items-center px-4 ">
-<span className="text-[20px] md:text-[30px] font-medium text-center">
-    Our <span className="italic"><span className={`${caramel.className} text-[35px] md:text-[50px] text-[#b32126]`}>Signature Collection</span></span>
+<span className="text-[20px] md:text-[40px] font-medium text-center">
+    Our <span className="italic"><span className={`${caramel.className} text-[35px] md:text-[60px] text-[#b32126]`}>Signature Collection</span></span>
   </span>
 
   <div className="flex flex-col text-[15px] md:text-[20px] text-center text-[#555]">
@@ -61,44 +61,44 @@ if (isError) {
   {/* Grid Layout */}
   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-7xl">
     
-    <div className="relative w-full h-[400px]">
+    <div className="relative w-full h-[450px]">
       <Image src="/Images/Index.jpg" alt="" fill className="object-cover rounded-2xl" />
     </div>
 
     <div className="flex flex-col gap-4">
-      <div className="relative w-full h-[191px]">
+      <div className="relative w-full h-[217px]">
         <Image src="/Images/Index1.jpg" alt="" fill className="object-cover rounded-2xl" />
       </div>
-      <div className="relative w-full h-[191px]">
+      <div className="relative w-full h-[217px]">
         <Image src="/Images/Index2.jpg" alt="" fill className="object-cover rounded-2xl" />
       </div>
     </div>
 
     <div className="flex flex-col gap-4">
-      <div className="relative w-full h-[191px]">
+      <div className="relative w-full h-[217px]">
         <Image src="/Images/Index3.jpg" alt="" fill className="object-cover rounded-2xl" />
       </div>
-      <div className="relative w-full h-[191px]">
+      <div className="relative w-full h-[217px]">
         <Image src="/Images/Index4.jpg" alt="" fill className="object-cover rounded-2xl" />
       </div>
     </div>
 
-    <div className="relative w-full h-[400px]">
+    <div className="relative w-full h-[450px]">
       <Image src="/Images/Index5.jpeg" alt="" fill className="object-cover rounded-2xl" />
     </div>
-      <div className="block md:hidden relative w-full h-[191px]">
+      <div className="block md:hidden relative w-full h-[217px]">
         <Image src="/Images/Index6.JPG" alt="" fill className="object-cover rounded-2xl" />
       </div>
-       <div className="block md:hidden relative w-full h-[191px]">
+       <div className="block md:hidden relative w-full h-[217px]">
         <Image src="/Images/Index7.png" alt="" fill className="object-cover rounded-2xl" />
       </div>
 
 
     <div className="hidden md:flex flex-col gap-4">
-      <div className="relative w-full h-[191px]">
+      <div className="relative w-full h-[217px]">
         <Image src="/Images/Index6.JPG" alt="" fill className="object-cover rounded-2xl" />
       </div>
-      <div className="relative w-full h-[191px]">
+      <div className="relative w-full h-[217px]">
         <Image src="/Images/Index7.png" alt="" fill className="object-cover rounded-2xl" />
       </div>
     </div>
@@ -109,7 +109,7 @@ if (isError) {
    {productData?.data?.products?.length > 0 ? (
   <ProductDisplay
     title="Best Sellers"
-    subtitle="Discover the magic of exquisite jewels that celebrate your special day with our endless love!"
+    subtitle="The ones that made it to the weddings — and stole the moment"
     products={productData.data.products}
   />
 ) :(

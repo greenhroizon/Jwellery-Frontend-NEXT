@@ -73,7 +73,7 @@ export default function SignUp() {
           {/* Image Section */}
           <div className="relative hidden md:block w-1/2 h-full">
             <Image
-              src="/Images/horse-image.JPG"
+              src="/Images/signupPage.jpg"
               alt="Sign up"
               fill
               className="object-fill"

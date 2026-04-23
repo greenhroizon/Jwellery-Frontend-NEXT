@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { API } from "@/service/dashboardService";
+import { caramel } from "@/app/fonts";
 
 const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 
@@ -103,7 +104,7 @@ const imageLook = look;
   return (
     <section className="py-8 md:py-12 px-4 lg:min-h-screen flex flex-col items-center">
       {/* Heading */}
-      <h2 className="text-center tracking-[0.2em] text-2xl md:text-4xl font-medium text-stone-700 uppercase mb-6 md:mb-10">
+      <h2 className={`text-[50px] ${caramel.className} text-[#b32126] mb-10`}>
         Shop the Look
       </h2>
 
