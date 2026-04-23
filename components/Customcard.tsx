@@ -156,7 +156,8 @@ export default function Customcard() {
             </div>
 
             {/* Optional button */}
-            <Button 
+            <div className="flex flex-col gap-2">
+                         <Button 
               onClick={handleSubmit}
               disabled={isPending}
               className="mt-2 bg-black text-white hover:bg-gray-800 p-4">
@@ -165,6 +166,8 @@ export default function Customcard() {
 
             <span className="text-center">Or</span>
             <GoogleLoginButton/>
+            </div>
+ 
 
           </div>
         </div>

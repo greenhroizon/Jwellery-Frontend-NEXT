@@ -154,7 +154,7 @@ export default function ContactUsCard() {
                   {isPending ? "Submitting..." : "Submit"}
                 </button>
                 <Link
-                  href="/signin"
+                  href="https://wa.me/919582284275"
                   className="bg-[#22c55e] text-white text-center rounded-lg p-2 hover:bg-[#0f8e3d] transition"
                 >
                   Chat on Whatsapp

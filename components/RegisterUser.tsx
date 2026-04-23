@@ -76,7 +76,7 @@ export default function SignUp() {
               src="/Images/signupPage.jpg"
               alt="Sign up"
               fill
-              className="object-fill"
+              className="object-cover"
               
               priority
             />

@@ -102,7 +102,7 @@ export default function GoogleLoginButton() {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="w-full mt-2">
+    <div ref={wrapperRef} className="w-full">
       <div className="flex flex-col items-center gap-2">
         <div
           ref={buttonRef}

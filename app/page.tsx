@@ -87,7 +87,7 @@ if (isError) {
       <Image src="/Images/Index5.jpeg" alt="" fill className="object-cover rounded-2xl" />
     </div>
       <div className="block md:hidden relative w-full h-[217px]">
-        <Image src="/Images/Index6.JPG" alt="" fill className="object-cover rounded-2xl" />
+        <Image src="/Images/IMG_5469.JPG" alt="" fill className="object-cover rounded-2xl" />
       </div>
        <div className="block md:hidden relative w-full h-[217px]">
         <Image src="/Images/Index7.png" alt="" fill className="object-cover rounded-2xl" />
@@ -96,7 +96,7 @@ if (isError) {
 
     <div className="hidden md:flex flex-col gap-4">
       <div className="relative w-full h-[217px]">
-        <Image src="/Images/Index6.JPG" alt="" fill className="object-cover rounded-2xl" />
+        <Image src="/Images/IMG_5469.JPG" alt="" fill className="object-cover rounded-2xl" />
       </div>
       <div className="relative w-full h-[217px]">
         <Image src="/Images/Index7.png" alt="" fill className="object-cover rounded-2xl" />

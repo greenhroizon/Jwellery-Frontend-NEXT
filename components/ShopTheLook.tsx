@@ -134,8 +134,8 @@ const imageLook = look;
             <div className="relative w-[65%] flex-shrink-0 rounded-md overflow-hidden">
               <div className="relative aspect-[3/3] w-full">
                 <video
-                 key={videoLook.videoUrl}
-src={`${IMAGE_BASE_URL}/${videoLook.videoUrl}`}
+                  key={videoLook.videoUrl}
+                  src={`${IMAGE_BASE_URL}/${videoLook.videoUrl}`}
                   className="w-full h-full object-cover"
                   autoPlay
                   loop

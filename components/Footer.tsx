@@ -49,7 +49,7 @@ const handleSubmit = () => {
         <div>
         {/* Section 1 */}
         <div className="bg-[#fff9dc] text-center flex flex-col items-center justify-center gap-6 px-4 py-16">
-            <h2 className="text-[15px] md:text-[30px] font-medium text-[#555]">
+            <h2 className="text-[15px] md:text-[30px] font-semibold text-[#555]">
             Handcrafted in <span className={`${caramel.className} text-[#b32126] text-[25px] md:text-[50px]`}>India</span>. Designed to{" "}
             <span className={`${caramel.className} text-[#b32126] text-[25px] md:text-[50px]`}>stand</span> apart.
             </h2>
@@ -63,7 +63,7 @@ const handleSubmit = () => {
 
         {/* Section 2 */}
         <div className="bg-[#c9b09a] flex flex-col items-center gap-6 px-4 py-16 min-h-[360px]">
-            <h2 className="text-[15px] md:text-[35px] font-medium text-[#555] text-center">
+            <h2 className="text-[15px] md:text-[35px] font-semibold text-[#555] text-center">
             Join exclusive access to{" "}
             <span className={`${caramel.className} text-[#b32126] text-[30px] md:text-[43px]`}>offers & more</span>
             </h2>
