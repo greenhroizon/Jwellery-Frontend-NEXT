@@ -30,7 +30,7 @@ export default function CategoryPage() {
       ) : (
          <div className="text-center py-16">
     <img
-      src="/images/item-not-found.webp"
+      src="/Images/item-not-found.webp"
       alt="No products"
       className="w-[220px] mx-auto mb-5 opacity-80"
     />
