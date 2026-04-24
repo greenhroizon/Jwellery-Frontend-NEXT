@@ -65,12 +65,11 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-6 arial-font">
+    <div className=" min-h-screen flex items-center justify-center p-4 pb-20 md:p-6 arial-font">
       <Card className="md:h-[500px] lg:h-[580px] xl:h-[620px] w-full max-w-5xl bg-[#fdf7e6] overflow-hidden p-0 shadow-xl rounded-3xl">
         
         <div className="flex h-full flex-col md:flex-row">
-          
-          {/* Image Section */}
+        
           <div className="relative hidden md:block w-1/2 h-full">
             <Image
               src="/Images/signupPage.jpg"
@@ -83,7 +82,7 @@ export default function SignUp() {
           </div>
 
           {/* Form Section */}
-          <div className="flex flex-col gap-5 p-6 md:p-8 w-full md:w-1/2 lg:justify-center">
+          <div className="flex flex-col gap-5 p-6 md:p-12 w-full md:w-1/2 lg:justify-center">
             
             {/* Heading */}
             <div className="flex flex-col gap-1">

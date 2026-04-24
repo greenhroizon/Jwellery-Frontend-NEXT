@@ -225,7 +225,7 @@ const selectedTotal = localCart
               />
               <Link
                 href={href}
-                className={`arial-font flex-1 pl-5 py-3 text-xl font-medium
+                className={`arial-font flex-1 px-2 py-3 text-xl font-medium
                 ${isActive ? "text-gray-900 font-semibold" : "text-black hover:text-blue-600"}`}
               >
                 {label}
@@ -238,7 +238,7 @@ const selectedTotal = localCart
           <div className="border-b-2 border-gray-400">
             <div
               onClick={() => { setShowFunction(!showFunction); setShowProduct(false); }}
-              className="flex items-center justify-between px-5 py-3 cursor-pointer"
+              className="flex items-center justify-between px-3 py-3 cursor-pointer"
             >
               <span className="arial-font text-xl text-black">Shop by Function</span>
               <span>{showFunction ? "−" : "+"}</span>
@@ -247,7 +247,7 @@ const selectedTotal = localCart
               <div className="bg-[#eae3d8]">
                 {shopByFunctionCategories.map((item: any) => (
                   <Link key={item._id} href={`/categories/${item._id}`} onClick={() => setIsOpen(false)}>
-                    <div className="arial-font pl-10 py-2 text-black hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
+                    <div className="arial-font pl-5 py-2 text-black hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
                       {item.name}
                     </div>
                   </Link>
@@ -260,7 +260,7 @@ const selectedTotal = localCart
         <div className="border-b-2 border-gray-400">
           <div
             onClick={() => { setShowProduct(!showProduct); setShowFunction(false); }}
-            className="flex items-center justify-between px-5 py-3 cursor-pointer"
+            className="flex items-center justify-between px-3 py-3 cursor-pointer"
           >
             <span className="arial-font text-xl text-black">Shop by Product</span>
             <span>{showProduct ? "−" : "+"}</span>
@@ -269,7 +269,7 @@ const selectedTotal = localCart
             <div className="bg-[#eae3d8]">
               {productCategories.map((item: any) => (
                 <Link key={item._id} href={`/categories/${item._id}`} onClick={() => setIsOpen(false)}>
-                  <div className="arial-font pl-10 py-2 text-black hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
+                  <div className="arial-font pl-5 py-2 text-black hover:text-blue-600 hover:bg-gray-100 transition border-b border-gray-300">
                     {item.name}
                   </div>
                 </Link>
@@ -291,13 +291,13 @@ const selectedTotal = localCart
                 ${isActive ? "bg-blue-500" : "bg-transparent hover:bg-blue-300"}`}
               />
               {label === "Logout" ? (
-                <span className="flex-1 pl-5 py-3 text-xl font-medium text-red-500 hover:text-red-700">
+                <span className="flex-1 pl-2 py-3 text-xl font-medium text-red-500 hover:text-red-700">
                   Logout
                 </span>
               ) : (
                 <Link
                   href={href}
-                  className={`arial-font flex-1 pl-5 py-3 text-xl font-medium
+                  className={`arial-font flex-1 pl-2 py-3 text-xl font-medium
                   ${isActive ? "text-gray-900 font-semibold" : "text-black hover:text-blue-600"}`}
                 >
                   {label}

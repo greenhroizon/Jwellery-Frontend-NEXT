@@ -63,7 +63,7 @@ const handleSubmit = () => {
 
         {/* Section 2 */}
         <div className="bg-[#c9b09a] flex flex-col items-center gap-6 px-4 py-16 min-h-[360px]">
-            <h2 className="text-[15px] md:text-[35px] font-semibold text-[#555] text-center">
+            <h2 className="text-[20px] md:text-[40px] font-semibold text-[#555] text-center">
             Join exclusive access to{" "}
             <span className={`${caramel.className} text-[#b32126] text-[30px] md:text-[43px]`}>offers & more</span>
             </h2>

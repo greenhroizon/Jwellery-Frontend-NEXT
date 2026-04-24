@@ -37,8 +37,8 @@ export default function ProductDisplay({
       
       {/* HEADER */}
       <div className="mb-6 flex flex-col text-center">
-        <span className={`text-[50px] ${caramel.className} text-[#b32126]`}>{title}</span>
-        <span className="arial-font text-[20px] text-[#555]">{subtitle}</span>
+        <span className={`text-[35px] md:text-[60px] ${caramel.className} text-[#b32126]`}>{title}</span>
+        <span className="arial-font text-[15px] md:text-[20px]  text-[#555]">{subtitle}</span>
       </div>
 
       {/* PRODUCTS GRID */}
@@ -47,7 +47,7 @@ export default function ProductDisplay({
           <ProductCard
             key={item._id}
             title={item.name}
-            price={`Rs ${item.sellingPrice}/-`}
+            price={`Rs ${item.sellingPrice.toLocaleString("en-IN")}/-`}
             image={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.imageUrl[0]}`}
             productData={item}
             id={item._id}

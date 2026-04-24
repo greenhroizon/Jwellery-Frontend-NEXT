@@ -7,12 +7,12 @@ export default function DulhanBanner() {
 
       {/* LEFT: Text */}
       <div className="flex flex-col gap-2 max-w-sm">
-        <h2  className={`text-[50px] ${caramel.className} text-[#b32126]`}>
+        <h2  className={`text-[35px] md:text-[60px] ${caramel.className} text-[#b32126]`}>
           Dulhan
         </h2>
 
-        <span className="text-[#555] text-xl arial-font">
-          KUCH ALAG brides don’t need the spotlight, they carry it. Our pieces just keep up.
+        <span className="text-[#555] text-[15px] md:text-[20px] arial-font">
+          The ones that made it to the weddings — and stole the moment
         </span>
               <Link href="/categories/69ea0d4d1740086ad903b8fd">
         <button className="mt-2 w-fit px-8 py-3 bg-[#2d5a27] text-white text-xs font-bold tracking-[0.2em] uppercase hover:bg-[#1e3d1a] transition-colors">

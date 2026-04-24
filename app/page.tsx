@@ -109,7 +109,7 @@ if (isError) {
    {productData?.data?.products?.length > 0 ? (
   <ProductDisplay
     title="Best Sellers"
-    subtitle="The ones that made it to the weddings — and stole the moment"
+    subtitle="Our most sought-after designs, worn, loved, and remembered."
     products={productData.data.products}
   />
 ) :(

@@ -95,9 +95,9 @@ const Reels = () => {
     <div className="w-full">
       {/* Header */}
       <div className="flex flex-col text-center mb-6">
-        <span className="text-[30px] font-medium text-[#555]">
+        <span className="text-[20px] md:text-[40px] font-medium text-[#555]">
           Our{" "}
-          <span className={`${caramel.className} text-[50px] text-[#b32126]`}>Watch Buy</span>
+          <span className={`${caramel.className} text-[35px] md:text-[60px] text-[#b32126]`}>Watch Buy</span>
         </span>
         <span className="arial-font text-[20px] text-[#555]">Spot what you like and buy!</span>
       </div>

@@ -105,7 +105,7 @@ const imageLook = look;
   return (
     <section className="py-8 md:py-12 px-4 lg:min-h-screen flex flex-col items-center">
       {/* Heading */}
-      <h2 className={`text-[50px] ${caramel.className} text-[#b32126] mb-10`}>
+      <h2 className={`text-[35px] md:text-[60px] ${caramel.className} text-[#b32126] mb-10`}>
         Shop the Look
       </h2>
 

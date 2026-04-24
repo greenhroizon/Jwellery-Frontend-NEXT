@@ -53,7 +53,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 arial-font">
+    <div className="min-h-screen flex items-center md:justify-center p-4 pb-20 md:p-6 arial-font">
       <Card className="md:h-[500px] lg:h-[580px] xl:h-[620px] w-full max-w-5xl bg-[#fdf7e6] overflow-hidden p-0 shadow-xl rounded-3xl">
         
         <div className="flex h-full flex-col md:flex-row">
