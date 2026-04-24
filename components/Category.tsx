@@ -22,7 +22,7 @@ export default function Category() {
     <div className="max-w-8xl mx-auto px-6 py-10 items-center">
       <div className="flex flex-col p-4">
         <span className={`${caramel.className} text-center text-[30px] md:text-[60px] text-[#b32126]`}>Categories</span>
-          <span className="text-center text-[15px] md:text-[20px] text-[#555]">Shop appropriate to your wedding function</span>
+          <span className="arial-font text-center text-[15px] md:text-[20px] text-[#555]">Shop appropriate to your wedding function</span>
       </div>
 
       <div className="flex flex-col gap-6">
@@ -65,7 +65,7 @@ export default function Category() {
                 >
                   {item.name}
                 </h2>
-                <p className="text-[#555] leading-relaxed text-[15px] md:text-[20px]">
+                <p className="text-[#555] arial-font text-[15px] md:text-[20px]">
                   {item.description}
                 </p>
               </div>

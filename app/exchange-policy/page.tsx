@@ -7,7 +7,7 @@ export default function ShippingPolicyDocs() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center arial-font">
         <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
       </div>
     );
@@ -15,7 +15,7 @@ export default function ShippingPolicyDocs() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
+      <div className="min-h-screen flex items-center justify-center text-red-500 arial-font">
         {(error as Error).message}
       </div>
     );
@@ -23,14 +23,14 @@ export default function ShippingPolicyDocs() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center arial-font">
         No Shipping Policy Found
       </div>
     );
   }
 
  return (
-  <div className="min-h-screen bg-[#f5f5f5] py-6 px-3">
+  <div className="min-h-screen bg-[#f5f5f5] py-6 px-3 arial-font">
         {/* Title */}
     <h1 className="text-center text-2xl font-bold tracking-wider mb-1">
       EXCHANGE POLICY

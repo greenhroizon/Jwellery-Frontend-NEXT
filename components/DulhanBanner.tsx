@@ -11,9 +11,9 @@ export default function DulhanBanner() {
           Dulhan
         </h2>
 
-        <p className="text-gray-600 leading-relaxed text-xl">
+        <span className="text-[#555] text-xl arial-font">
           KUCH ALAG brides don’t need the spotlight, they carry it. Our pieces just keep up.
-        </p>
+        </span>
 
         {/* <button className="mt-2 w-fit px-8 py-3 bg-[#2d5a27] text-white text-xs font-bold tracking-[0.2em] uppercase hover:bg-[#1e3d1a] transition-colors">
           Explore

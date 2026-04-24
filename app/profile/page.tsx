@@ -74,7 +74,7 @@ export default function Profile() {
   // 🔥 UI
   // ─────────────────────────────────────────────
   return (
-    <div className="flex flex-col md:flex-row gap-6 md:gap-10 p-4 md:p-10 items-center md:items-start md:justify-center">
+    <div className="arial-font flex flex-col md:flex-row gap-6 md:gap-10 p-4 md:p-10 items-center md:items-start md:justify-center">
 
       {/* Sidebar */}
       <Card className="w-67 md:w-72 flex flex-col p-0">

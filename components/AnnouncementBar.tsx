@@ -5,7 +5,7 @@ export default function AnnouncementBar() {
     "Get 5% off on your 1st order, after you subscribe with us | WE SUGGEST - FOR FAMILY WEDDINGS, BRIDESMAID OR BESTMAN GIFTING, CUSTOM ORDERS, CONTACT US DIRECTLY";
 
   return (
-    <div className="w-full h-[36px] bg-[#2a2016] border-b border-white/10 overflow-hidden flex items-center">
+    <div className="arial-font w-full h-[36px] bg-[#2a2016] border-b border-white/10 overflow-hidden flex items-center">
       
       <div className="flex animate-loop whitespace-nowrap">
         {[...Array(4)].map((_, i) => (

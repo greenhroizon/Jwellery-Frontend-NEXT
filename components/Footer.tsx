@@ -90,14 +90,14 @@ const handleSubmit = () => {
             </div>
             <div className="flex flex-col md:flex-row gap-8 md:gap-15 lg:gap-25 xl:gap-40 w-full justify-center mt-20">
                 <div className="flex flex-col">
-                    <span className=" text-[22px] font-bold">Occasion</span>
+                    <span className=" text-[22px] font-bold arial-font">Occasion</span>
                    {categoryLoading ? (
                       <span>Loading...</span>
                     ) : (
                       categories.map((item: any) => (
                         <span
                           key={item._id}
-                          className="text-[18px] cursor-pointer hover:text-orange-500"
+                          className="text-[18px] cursor-pointer hover:text-orange-500 arial-font"
                           onClick={() => handleClick(item._id)}
                         >
                           {item.name}
@@ -105,14 +105,14 @@ const handleSubmit = () => {
                       ))
                     )}
                 </div>
-                <div className="flex flex-col gap-2">
-                    <span className=" text-[22px] font-bold">Information</span>
+                <div className="flex flex-col arial-font">
+                    <span className=" text-[22px] font-bold arial-font">Information</span>
                     <span className="text-[18px]"><Link href="/shipping-policy">Shipping Policy</Link></span>
                     <span className="text-[18px]"><Link href="/exchange-policy">Exchange Policy</Link></span>
                     <span className="text-[18px]"><Link href="/privacy-policy">Privacy Policy</Link></span>
                     <span className="text-[18px]"><Link href="/terms">Terms of Use</Link></span>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col arial-font">
                     <span className="text-[22px] font-bold">Visit Us</span>
 
                     {footerLoading ? (
@@ -137,7 +137,7 @@ const handleSubmit = () => {
                     <span className="text-[18px]">No data found</span>
                     )}
                 </div>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 arial-font">
   <span className="text-[22px] font-bold">About Us</span>
 
   {/* Instagram */}

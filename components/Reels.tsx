@@ -99,7 +99,7 @@ const Reels = () => {
           Our{" "}
           <span className={`${caramel.className} text-[50px] text-[#b32126]`}>Watch Buy</span>
         </span>
-        <span className="text-[20px] text-[#555]">Spot what you like and buy!</span>
+        <span className="arial-font text-[20px] text-[#555]">Spot what you like and buy!</span>
       </div>
 
       {/* Reels scroll row */}

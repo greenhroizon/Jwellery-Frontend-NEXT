@@ -73,7 +73,7 @@ export default function Customcard() {
     );
   };
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 arial-font">
       <h2 className={`${caramel.className} text-[50px] text-center text-[#b32126] mb-2`}>
         Custom Orders
       </h2>

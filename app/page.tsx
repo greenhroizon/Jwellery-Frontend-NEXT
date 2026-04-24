@@ -49,7 +49,7 @@ if (isError) {
     Our <span className="italic"><span className={`${caramel.className} text-[35px] md:text-[60px] text-[#b32126]`}>Signature Collection</span></span>
   </span>
 
-  <div className="flex flex-col text-[15px] md:text-[20px] text-center text-[#555]">
+  <div className="arial-font flex flex-col text-[15px] md:text-[20px] text-center text-[#555]">
     <span>
       A curated line of handcrafted jewellery innovations, redefining how adornment is worn and experienced.
     </span>
@@ -113,7 +113,7 @@ if (isError) {
     products={productData.data.products}
   />
 ) :(
-  <div className="text-center py-16">
+  <div className="text-center py-16 arial-font">
     <img
       src="/Images/item-not-found.webp"
       alt="No products"

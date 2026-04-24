@@ -26,7 +26,7 @@ export default function OrderHistory() {
   const orders = data?.data || [];
 
   return (
-    <div className="p-6 w-full">
+    <div className="p-6 w-full arial-font">
       <h2 className="text-2xl font-bold mb-6 text-center">Order History</h2>
 
       <div className="border rounded-xl overflow-hidden shadow-sm bg-white w-full">

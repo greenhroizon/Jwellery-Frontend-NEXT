@@ -20,7 +20,7 @@ export default function CategoryPage() {
   const products = data?.data?.products || [];
 
   return (
-    <div>
+    <div className="arial-font">
        {data?.data?.products?.length > 0 ? (
         <ProductDisplay
           title={products[0].categoryId.name}

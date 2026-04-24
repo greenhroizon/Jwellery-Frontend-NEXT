@@ -32,7 +32,7 @@ export default function CustomOrderHistory() {
   const orders = data?.data || [];
 
   return (
-    <div className="p-6 w-full">
+    <div className="p-6 w-full arial-font">
       <h2 className="text-2xl font-bold mb-6 text-center">
         Custom Order History
       </h2>

@@ -38,7 +38,7 @@ export default function ProductDisplay({
       {/* HEADER */}
       <div className="mb-6 flex flex-col text-center">
         <span className={`text-[50px] ${caramel.className} text-[#b32126]`}>{title}</span>
-        <span className="text-[20px] text-[#555]">{subtitle}</span>
+        <span className="arial-font text-[20px] text-[#555]">{subtitle}</span>
       </div>
 
       {/* PRODUCTS GRID */}

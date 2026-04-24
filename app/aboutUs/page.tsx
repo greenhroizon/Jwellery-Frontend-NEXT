@@ -18,7 +18,7 @@ export default function AboutUsPage() {
   }
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 arial-font">
       <div className="max-w-5xl mx-auto px-4 pt-12 text-center">
         
         <span className={`${caramel.className} text-[50px] text-[#b32126]`}> About Us</span>

@@ -409,7 +409,7 @@ const openRazorpay = async (orderData: any) => {
   return (
     <>
 
-      <div className="min-h-screen p-6">
+      <div className="min-h-screen p-6 arial-font">
         <div className="max-w-7xl mx-auto px-6 mb-6">
           <button
             onClick={() => router.push("/")}
