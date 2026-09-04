@@ -12,6 +12,9 @@ import { caramel } from "./fonts";
 import PopUp from "@/components/PopUp";
 import DulhanBanner from "@/components/DulhanBanner";
 import ShopTheLook from "@/components/ShopTheLook";
+
+const isVideoFile = (url: string) => /\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(url || "");
+
 export default function Home() {
 const { data: bannerData, isLoading: bannerLoading, isError: bannerError } = useBanners();
 const { data: productData, isLoading: productLoading, isError: productError } = useBestProducts();
@@ -35,13 +38,24 @@ if (isError) {
     <PopUp />  
     <div className="flex flex-col gap-12">
       {bannerData?.data?.map((banner: any) => (
-        <div key={banner.id} className="relative w-full h-[90vh]">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${banner.imageUrl}`}
-            alt="banner"
-            fill
-            className="object-cover"
-          />
+        <div key={banner.id} className="relative w-full h-[90vh] overflow-hidden">
+          {isVideoFile(banner.imageUrl) ? (
+            <video
+              src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${banner.imageUrl}`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${banner.imageUrl}`}
+              alt="banner"
+              fill
+              className="object-cover"
+            />
+          )}
         </div>
       ))}
      <div className="flex flex-col gap-4 items-center px-4 ">
